@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { deepDives, funnels } from "@/data/library";
+import { deepDives, funnels, funnelDetail } from "@/data/library";
+import { CopyBriefButton } from "@/components/CopyBriefButton";
 
 export const metadata = { title: "Pages that sell · boringfunnels" };
 
@@ -38,11 +39,17 @@ export default function LibraryPage() {
                 <div className="mt-4 flex flex-wrap items-center gap-3">
                   <span className="text-[12px] font-mono text-muted">{d.steps.join(" · ")}</span>
                   <Link href={`/library/funnels/${d.slug}`} className="alink text-[14.5px] font-semibold">Open the deep dive →</Link>
-                  <button className="btn-ghost text-[13px]" type="button">Copy agent brief</button>
+                  {funnelDetail[d.slug]?.brief && (
+                    <CopyBriefButton brief={funnelDetail[d.slug].brief as string} label="Copy agent brief" className="btn-ghost text-[13px]" />
+                  )}
                 </div>
               ) : (
                 <div className="mt-4 flex items-center gap-3">
-                  <button className="btn-ghost text-[13px]" type="button">Copy brief</button>
+                  {funnelDetail[d.slug]?.brief ? (
+                    <CopyBriefButton brief={funnelDetail[d.slug].brief as string} label="Copy brief" className="btn-ghost text-[13px]" />
+                  ) : (
+                    <button className="btn-ghost text-[13px]" type="button">Copy brief</button>
+                  )}
                   <Link href="/start" className="alink text-[13.5px]">Pro opens this deep dive</Link>
                 </div>
               )}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { funnelDetail, funnels } from "@/data/library";
+import { CopyBriefButton } from "@/components/CopyBriefButton";
 
 export function generateStaticParams() {
   return funnels.map((f) => ({ slug: f.slug }));
@@ -16,7 +17,9 @@ export default async function FunnelPage({ params }: { params: Promise<{ slug: s
   const { slug } = await params;
   const d = funnelDetail[slug];
   if (!d) notFound();
-  const locked = !d.brief;
+  // The deep-dive record is open only for this week's free study (keystone);
+  // the brief itself is copyable on the free tier for both walked funnels.
+  const locked = !d.open;
 
   return (
     <div>
@@ -29,7 +32,7 @@ export default async function FunnelPage({ params }: { params: Promise<{ slug: s
             {d.kind} · {d.pattern} · {d.stepsMeta}
           </p>
         </div>
-        <button className="btn-go" type="button">Copy agent brief</button>
+        {d.brief && <CopyBriefButton brief={d.brief} />}
       </div>
 
       <p className="mt-4 text-muted max-w-[640px]">{d.blurb}</p>
@@ -109,6 +112,21 @@ export default async function FunnelPage({ params }: { params: Promise<{ slug: s
               </article>
             ))}
           </div>
+        </section>
+      )}
+
+      {/* This week's study: the three moves to steal */}
+      {d.moves && d.moves.length > 0 && (
+        <section className="mt-12" aria-label="Steal these three">
+          <p className="kicker">STEAL THESE THREE</p>
+          <ol className="mt-4 space-y-6">
+            {d.moves.map((m) => (
+              <li key={m.title} className="max-w-[680px]">
+                <h3 className="font-mono text-[13px] font-bold uppercase tracking-wide">{m.title}</h3>
+                <p className="mt-2 text-[15.5px]">{m.body}</p>
+              </li>
+            ))}
+          </ol>
         </section>
       )}
 

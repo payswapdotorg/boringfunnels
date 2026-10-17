@@ -1,6 +1,8 @@
 // Library content — deep dives, funnels, and built-with-Pro data
 // transcribed from the authenticated library (free tier), captured 2026-10-17.
 
+import { keystoneBrief, guitarBrief } from "./briefs";
+
 export const libraryStats = [
   { label: "Deep dives", n: 6 },
   { label: "Funnels", n: 15 },
@@ -93,10 +95,14 @@ export const funnelDetail: Record<
     brief:
       | string
       | null;
+    /** the deep dive (every step's record) is open — this week's free study */
+    open?: boolean;
     steps: FunnelStep[];
     arrows: string[];
     locked?: boolean;
     ads?: { headline: string; body: string; kind: string; running: string; cta: string }[];
+    /** the "STEAL THESE THREE" moves from this week's study */
+    moves?: { title: string; body: string }[];
   }
 > = {
   "guitar-challenge": {
@@ -106,8 +112,7 @@ export const funnelDetail: Record<
     stepsMeta: "8 steps, 6 seen",
     blurb:
       "A free challenge with a fixed start day that leads to a paid course, for adults who have tried the skill before and quit",
-    brief:
-      "A free challenge with a fixed start day that leads to a paid course, for adults who have tried the skill before and quit",
+    brief: guitarBrief,
     steps: [
       { num: 1, label: "Ad", thought: "Clicks the ad", seen: true },
       { num: 2, label: "Opt-in", thought: "A first name and an email, then \"Yes, Send Me the Challenge\"", seen: true },
@@ -147,15 +152,44 @@ export const funnelDetail: Record<
     stepsMeta: "9 steps, 8 seen",
     blurb:
       "A local roofer gets leads from Angi, the website and door hangers, but callbacks are slow and estimates get no follow-up.",
-    brief: null,
+    brief: keystoneBrief,
+    open: true,
     steps: [
       { num: 1, label: "The one prompt, written as the owner", thought: "The agent reads the local market", seen: true },
       { num: 2, label: "What the agent read first", thought: "Nine looks to choose from", seen: true },
       { num: 3, label: "The board: nine looks, one pick", thought: "Pick this look, then Build my pages", seen: true },
       { num: 4, label: "Booking", thought: "Start my roof check, for the ones not ready to book", seen: true },
       { num: 5, label: "Quiz", seen: true },
+      { num: 6, label: "Thank-you page", thought: "After the inspection, the written estimate and its page", seen: true },
+      { num: 7, label: "Your estimate, explained", thought: "Seven follow-ups over three weeks", seen: true },
+      { num: 8, label: "Emails", seen: true },
+      { num: 9, label: "Ad", seen: false },
     ],
-    arrows: [],
+    arrows: [
+      "Booking → Thank-you page: ZIP, a window, name and phone, then Book my inspection",
+      "Thank-you page → Emails: The booking confirmation text",
+      "Quiz → Emails: The result and four roof-check emails",
+      "Quiz → Booking: Pick my inspection time to confirm the result",
+      "Emails → Page: See your estimate, explained",
+      "Emails → Booking: Pick my inspection time",
+    ],
+    moves: [
+      {
+        title: "MOVE 1 · THE OPEN GROUND — Find the open ground before the headline.",
+        body:
+          "Every Kansas City roofer site it read (RN Roofing, Easton, Century) promises a free inspection, local roots and GAF. Nobody commits to a reply time, and nobody follows up after the estimate. The headline took the open ground: \"in one minute. No waiting for a callback.\"",
+      },
+      {
+        title: "MOVE 2 · THE REPLY — Make the reply the offer.",
+        body:
+          "Three short booking steps, a text back within a minute, the estimator confirms the same day. The forum's pain (\"about 1/2 dozen calls to contractors to get 1 returned call\") is answered on the first screen.",
+      },
+      {
+        title: "MOVE 3 · THE ESTIMATE — Follow the estimate, not just the lead.",
+        body:
+          "The owner's leak was after the estimate, so the funnel keeps going past it: \"Your estimate, explained\" (every line of the price, five questions to ask every roofer, the warranty, insurance, ways to pay) and seven texts and emails over three weeks.",
+      },
+    ],
   },
   "dowjanes-webinar": {
     name: "Dow Janes",

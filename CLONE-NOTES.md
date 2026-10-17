@@ -28,3 +28,32 @@
 ## Why this repo exists
 
 Per the operator's instruction: *using https://github.com/morluto/rea, clone the product https://boringfunnels.com into a new repo on payswapdotorg.* The rea toolchain's whole pitch is "see a feature you like → understand how it works, with evidence → build a version for your project"; this repo is that loop executed against a full product, with the evidence trail above.
+
+## Addendum — 2026-10-17 (evening session): the authenticated captures, completed
+
+A second REA pass (same browser/CDP method, Google sign-in via the operator's
+account) re-walked the product with the free library open and closed four gaps
+the first pass had left:
+
+1. **The real agent briefs.** The "Copy agent brief" buttons were captured via
+   clipboard: Keystone Roofing (13,798 chars) and Tony Polecastro's 5-Day
+   Guitar Challenge (6,366 chars) — both committed verbatim in
+   `src/data/briefs.ts` and wired to a real `CopyBriefButton` (clipboard +
+   execCommand fallback). On the production free tier, both briefs copy; only
+   this week's study (Keystone) opens its deep-dive record, which the clone
+   now models with `open` (decoupled from `brief`).
+2. **Keystone steps 6–9** (Thank-you page, Your estimate explained, Emails,
+   Ad-not-seen) and the six step-to-step edges, captured from the walkthrough.
+3. **The "STEAL THESE THREE" moves** — the study's three named moves (The Open
+   Ground, The Reply, The Estimate), rendered as their own section.
+4. **The library surface** — industry filter chips (Trades … Agency, Deep
+   dives), the stat rail (6 / 15 / 192 / 1,350 / 28), the tools (Funnel
+   Finder, Funnel math), the onboarding "Tell us who you're building for"
+   dialog and the account page's free-tier copy were re-verified against the
+   live site; the earlier transcriptions held.
+
+Evidence from this pass: `rea inspect-web-page` + `capture-web-screenshot` on
+`/`, `/access`, `/library` (authed), `/library/funnels/keystone-roofing`,
+`/library/funnels/guitar-challenge`, `/library/find`, `/funnel-math`,
+`/start`, `/library?mode=pages`, `/account*` — with accessibility text, script
+sources, storage keys and the two clipboard briefs.
