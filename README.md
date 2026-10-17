@@ -34,6 +34,22 @@ Build for production:
 bun run build && bun run start
 ```
 
+## Desktop app (Ubuntu)
+
+The product also ships as a self-contained Ubuntu desktop package — an Electron
+shell that runs the local Next.js server and opens the product in its own
+window. Fully offline, no browser required.
+
+```bash
+# from this repo's Releases page: download boringfunnels-desktop_1.0.0_amd64.deb
+sudo apt install ./boringfunnels-desktop_1.0.0_amd64.deb
+boringfunnels          # or launch "boringfunnels" from your application menu
+```
+
+See [desktop/README.md](./desktop/README.md) for details (ports, data
+locations, uninstall, and building the package from source with
+`desktop/build-deb.sh`).
+
 ## Stack
 
 - Next.js 16 (App Router) + TypeScript

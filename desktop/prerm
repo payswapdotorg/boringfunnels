@@ -1,0 +1,14 @@
+#!/bin/sh
+# boringfunnels-desktop pre-remove — stop a running instance so its files
+# do not vanish underneath it.
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = "purge" ] || [ "$1" = "upgrade" ]; then
+  if command -v pkill >/dev/null 2>&1; then
+    pkill -f '/opt/boringfunnels-desktop/electron/electron' 2>/dev/null || true
+    sleep 1
+    pkill -9 -f '/opt/boringfunnels-desktop/electron/electron' 2>/dev/null || true
+  fi
+fi
+
+exit 0

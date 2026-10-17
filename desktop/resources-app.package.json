@@ -1,0 +1,8 @@
+{
+  "name": "boringfunnels-desktop",
+  "productName": "boringfunnels",
+  "version": "@VERSION@",
+  "description": "boringfunnels — local desktop edition",
+  "main": "main.js",
+  "private": true
+}

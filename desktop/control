@@ -1,0 +1,14 @@
+Package: boringfunnels-desktop
+Version: 1.0.0
+Section: web
+Priority: optional
+Architecture: amd64
+Depends: libgtk-3-0 | libgtk-3-0t64, libnss3, libasound2 | libasound2t64, libgbm1, libxss1, libxkbcommon0, libdrm2, libatk-bridge2.0-0 | libatk-bridge2.0-0t64, libcups2 | libcups2t64
+Maintainer: payswapdotorg <yaslencatty@gmail.com>
+Homepage: https://github.com/payswapdotorg/boringfunnels
+Description: boringfunnels — local desktop edition
+ A self-contained desktop build of the boringfunnels product: the funnel
+ teardown library, funnel math calculator, and the account portal.
+ .
+ The full Next.js application runs from a local server inside the app and
+ opens in its own window — no browser and no internet connection required.

@@ -1,0 +1,32 @@
+#!/bin/sh
+# boringfunnels-desktop post-install
+set -e
+
+# Electron's sandbox helper must be setuid root (standard electron-deb practice).
+SANDBOX="/opt/boringfunnels-desktop/electron/chrome-sandbox"
+if [ -f "$SANDBOX" ]; then
+  chown root:root "$SANDBOX" 2>/dev/null || true
+  chmod 4755 "$SANDBOX" 2>/dev/null || true
+fi
+
+# The packaged tree is root-owned; make it readable and launchable for any
+# local user, and let the Next.js production server write its runtime cache.
+if [ -d /opt/boringfunnels-desktop ]; then
+  chmod 755 /opt/boringfunnels-desktop 2>/dev/null || true
+  find /opt/boringfunnels-desktop -type d -exec chmod a+rx {} + 2>/dev/null || true
+  find /opt/boringfunnels-desktop -type f -exec chmod a+r {} + 2>/dev/null || true
+  chmod a+rx /opt/boringfunnels-desktop/electron/electron 2>/dev/null || true
+  if [ -d /opt/boringfunnels-desktop/app/.next/cache ]; then
+    find /opt/boringfunnels-desktop/app/.next/cache -type d -exec chmod a+rwX {} + 2>/dev/null || true
+    find /opt/boringfunnels-desktop/app/.next/cache -type f -exec chmod a+rw {} + 2>/dev/null || true
+  fi
+fi
+
+if command -v update-desktop-database >/dev/null 2>&1; then
+  update-desktop-database -q /usr/share/applications 2>/dev/null || true
+fi
+if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+  gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor 2>/dev/null || true
+fi
+
+exit 0

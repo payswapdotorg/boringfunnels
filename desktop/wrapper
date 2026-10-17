@@ -1,0 +1,5 @@
+#!/bin/sh
+# boringfunnels desktop launcher
+exec /opt/boringfunnels-desktop/electron/electron \
+  --class=boringfunnels \
+  /opt/boringfunnels-desktop/resources/app "$@"

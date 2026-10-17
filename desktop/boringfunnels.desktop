@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=boringfunnels
+GenericName=Funnel library
+Comment=Build funnels that sell — your local boringfunnels library
+Exec=boringfunnels
+TryExec=/opt/boringfunnels-desktop/electron/electron
+Icon=boringfunnels
+Terminal=false
+Categories=Office;Business;Network;
+StartupWMClass=boringfunnels
+X-GNOME-UsesNotifications=false
