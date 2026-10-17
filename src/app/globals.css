@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+/*
+ * boringfunnels design system — tokens extracted from the production site
+ * (boringfunnels.com, captured 2026-10-17 via rea analyze-web-bundle).
+ * The visual identity: paper white, ink #20251e, go-green #00a651,
+ * marker-yellow #ffe500, Caveat hand annotations, slight tilts (-2.2deg/2.5deg).
+ */
+
+:root {
+  --ink: #20251e;
+  --muted: #6a7362;
+  --paper: #ffffff;
+  --field: #f3f5ec;
+  --line: #e0e4d9;
+  --go: #00a651;
+  --go-ink: #0b0d0a;
+  --go-text: #00873c;
+  --hl: #ffe500;
+  --night: #14180f;
+  --note-y: #fde68a;
+  --note-p: #fbcfe8;
+  --note-m: #bbf7d0;
+  --note-b: #bfdbfe;
+  --red: #b42318;
+  --hand: "Caveat", "Bradley Hand", cursive;
+  --col: 640px;
+  --wide: 860px;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-paper: var(--paper);
+  --color-field: var(--field);
+  --color-line: var(--line);
+  --color-go: var(--go);
+  --color-go-ink: var(--go-ink);
+  --color-go-text: var(--go-text);
+  --color-hl: var(--hl);
+  --color-night: var(--night);
+  --color-note-y: var(--note-y);
+  --color-note-p: var(--note-p);
+  --color-note-m: var(--note-m);
+  --color-note-b: var(--note-b);
+  --color-red: var(--red);
+  --font-display: var(--font-inter-tight), "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-inter), Inter, ui-sans-serif, -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-hand: "Caveat", "Bradley Hand", cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--hl);
+  color: var(--go-ink);
+}
+
+/* The marker highlight — the site's signature: yellow behind key phrases */
+mark {
+  background: var(--hl);
+  color: var(--ink);
+  padding: 0 0.08em;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Hand-written annotations (Caveat), slightly rotated */
+.hand {
+  font-family: var(--hand);
+  font-size: 1.35em;
+  line-height: 1.1;
+  color: var(--go-text);
+}
+.hand-tilt { display: inline-block; transform: rotate(-2.2deg); }
+.hand-tilt-r { display: inline-block; transform: rotate(2.5deg); }
+
+/* The go button — solid green pill, ink text */
+.btn-go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--go);
+  color: var(--go-ink);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.06s ease, filter 0.12s ease;
+}
+.btn-go:hover { filter: brightness(1.05); }
+.btn-go:active { transform: translateY(1px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: var(--ink);
+  font-weight: 600;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 0.42rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+.btn-ghost:hover { border-color: var(--muted); }
+
+/* Fields: paper-wash inputs */
+.field {
+  background: var(--field);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 0.72rem 1rem;
+  width: 100%;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.12s ease;
+}
+.field:focus { border-color: var(--go); }
+.field::placeholder { color: #9aa38d; }
+
+/* Eyebrow: small green caps */
+.eyebrow {
+  color: var(--go-text);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Card: line-bordered paper card */
+.card {
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+
+/* Sticky annotation (site uses .sticky with a marker tail) */
+.sticky-note {
+  background: var(--note-y);
+  border-radius: 4px;
+  padding: 0.35rem 0.6rem;
+  box-shadow: 0 1px 2px rgb(32 37 30 / 0.12);
+  transform: rotate(-1.6deg);
+  display: inline-block;
+}
+
+/* Skip link */
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--go);
+  color: var(--go-ink);
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 8px 0;
+  z-index: 60;
+}
+.skip:focus { left: 0; }
+
+/* Underlined green text link */
+.alink {
+  color: var(--go-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+.alink:hover { text-decoration-thickness: 2.5px; }
+
+/* The funnel rail (numbered steps) */
+.rail-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* Small-caps section kicker */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+}
+
+/* Custom scrollbar for long lists */
+.scroll-slim::-webkit-scrollbar { width: 8px; }
+.scroll-slim::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+.scroll-slim::-webkit-scrollbar-track { background: transparent; }
