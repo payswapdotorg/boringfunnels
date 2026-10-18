@@ -57,3 +57,35 @@ Evidence from this pass: `rea inspect-web-page` + `capture-web-screenshot` on
 `/library/funnels/guitar-challenge`, `/library/find`, `/funnel-math`,
 `/start`, `/library?mode=pages`, `/account*` — with accessibility text, script
 sources, storage keys and the two clipboard briefs.
+
+## Addendum — 2026-10-18: the fresh capture, the library enriched
+
+A third authenticated capture (45 SSR pages, 518 media files, a structured
+catalog) found the production free tier showing far more than this clone
+carried. The gap, now closed:
+
+1. **All 15 funnels open.** Every funnel's walkthrough now renders unlocked:
+   the step rail with its pinned screens (`/library/crop/funnels/…`), the
+   buyer's thought on each edge, the paths-between-steps notes, the ad set
+   (the six longest-running, with their creatives and Ad Library links) and
+   the research log's "observed" line. The guitar-challenge and
+   keystone-roofing entries are unchanged from the second pass (their data
+   was already complete); the other 13 are parsed from the fresh capture.
+   The per-step "records" (each step's own teardown note) are client-loaded
+   in production and were not in the SSR capture — they remain the Pro
+   upsell, except Keystone's study frames, which the clone already carries.
+2. **The catalogs.** The pages view (`/library?mode=pages`) lists all 192
+   pages and the sections view (`/library?mode=sections`) all 60 sections
+   open on the free tier — name, section count, industry, selling job and
+   the full move text, with each entry's pinned screen. Two pages have no
+   pinned screen (production renders a ghost placeholder; so does this).
+3. **The funnels view** (`/library?mode=funnels`) renders the card grid as
+   production does: a three-screen strip, the step count and the one-line
+   selling move per funnel.
+4. **Assets.** The 367 media files the enriched library references were
+   copied from the capture mirror into `public/library/crop/` (72 MB);
+   nothing else from the 86 MB mirror was committed.
+
+Honest scope, unchanged: the clone still models the free tier only; the 192
+page teardowns, the other 1,290 sections and the per-step records stay
+unrendered Pro content, exactly as captured.

@@ -27,6 +27,16 @@ export default async function LibraryLayout({ children }: { children: React.Reac
         <aside aria-label="Library">
           <p className="eyebrow">FREE</p>
           <nav className="mt-3">
+            <p className="kicker mb-2">LIBRARY</p>
+            <ul className="space-y-1.5 text-[14.5px]">
+              <li><Link className="text-muted hover:text-go-text" href="/library">Deep dives</Link></li>
+              <li><Link className="text-muted hover:text-go-text" href="/library?mode=funnels">Funnels</Link></li>
+              <li><Link className="text-muted hover:text-go-text" href="/library?mode=pages">Pages</Link></li>
+              <li><Link className="text-muted hover:text-go-text" href="/library?mode=sections">Sections</Link></li>
+              <li><Link className="text-muted hover:text-go-text" href="/library/built">Built with Pro</Link></li>
+            </ul>
+          </nav>
+          <nav className="mt-6">
             <p className="kicker mb-2">INDUSTRY</p>
             <ul className="space-y-1.5 text-[14.5px]">
               {industries.map((i, idx) => (

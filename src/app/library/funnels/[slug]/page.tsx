@@ -17,13 +17,14 @@ export default async function FunnelPage({ params }: { params: Promise<{ slug: s
   const { slug } = await params;
   const d = funnelDetail[slug];
   if (!d) notFound();
-  // The deep-dive record is open only for this week's free study (keystone);
-  // the brief itself is copyable on the free tier for both walked funnels.
-  const locked = !d.open;
+  // On the fresh free tier every funnel's walk is open: the ad, the screens,
+  // the emails, the edges between them. The per-step records and the skills
+  // stay in Pro, rendered as the upsell at the end.
+  const guitarSteps = ["ad", "optin", "confirm", "video", "email", "lessons", "offer", "checkout"];
 
   return (
     <div>
-      <Link href="/library" className="alink text-[14px]">← Funnels</Link>
+      <Link href="/library?mode=funnels" className="alink text-[14px]">← Funnels</Link>
 
       <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
         <div>
@@ -36,18 +37,6 @@ export default async function FunnelPage({ params }: { params: Promise<{ slug: s
       </div>
 
       <p className="mt-4 text-muted max-w-[640px]">{d.blurb}</p>
-
-      {locked && (
-        <div className="mt-8 card border-line bg-field/60 p-6">
-          <p className="font-display font-bold text-lg">Pro opens this deep dive, and your agent builds yours from it</p>
-          <ul className="mt-3 space-y-2 text-[15px]">
-            <li className="flex gap-3"><span aria-hidden="true" className="text-go-text font-bold">✓</span>Every screen pinned, with the buyer's thought at each step</li>
-            <li className="flex gap-3"><span aria-hidden="true" className="text-go-text font-bold">✓</span>How it applies to a business like yours, its weak spots and what not to copy</li>
-            <li className="flex gap-3"><span aria-hidden="true" className="text-go-text font-bold">✓</span>Then your version from one prompt: copy, design, pages and emails, checked</li>
-          </ul>
-          <Link href="/start" className="btn-go mt-5">See what Pro builds</Link>
-        </div>
-      )}
 
       {/* The step rail */}
       <section className="mt-10" aria-label="The funnel, step by step">
@@ -66,11 +55,22 @@ export default async function FunnelPage({ params }: { params: Promise<{ slug: s
                   {!s.seen && <span className="text-[11.5px] text-muted border border-line rounded-full px-2 py-0.5">Not seen</span>}
                   {s.seen && s.thought && <span className="hand text-[1.15rem]">→ {s.thought}</span>}
                 </div>
+                {s.seen && s.img && (
+                  <div className="mt-2 w-full max-w-[420px] rounded-lg border border-line overflow-hidden bg-field">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={s.img}
+                      alt={`${d.name} — step ${s.num}, ${s.label}`}
+                      className="w-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
                 {slug === "guitar-challenge" && s.seen && (
                   <div className="mt-2 w-full max-w-[420px] rounded-lg border border-line overflow-hidden bg-field">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={`/study/guitar-challenge-${["ad", "optin", "confirm", "video", "email", "lessons", "offer", "checkout"][s.num - 1] ?? "ad"}.jpg`}
+                      src={`/study/guitar-challenge-${guitarSteps[s.num - 1] ?? "ad"}.jpg`}
                       alt={`${d.name} — step ${s.num}, ${s.label}`}
                       className="w-full object-cover object-top"
                       loading="lazy"
@@ -98,21 +98,39 @@ export default async function FunnelPage({ params }: { params: Promise<{ slug: s
         <section className="mt-12" aria-label="The ads">
           <p className="kicker">1 · AD — THE ADS</p>
           <p className="mt-2 text-muted text-[15px] max-w-[640px]">
-            {slug === "guitar-challenge"
-              ? "8 active Meta ads pointed at the opt-in page on Oct 11, 2026; the oldest started Jun 17, 2025 (482 days). The 6 longest-running are kept here. Our research walkthrough came through the oldest, ad 1004325811688575."
-              : "9 active Meta ads pointed at the registration page on Oct 11, 2026; the oldest started Jun 22, 2026 (112 days). The 6 longest-running are kept here."}
+            {d.adDoes ??
+              (slug === "guitar-challenge"
+                ? "8 active Meta ads pointed at the opt-in page on Oct 11, 2026; the oldest started Jun 17, 2025 (482 days). The 6 longest-running are kept here. Our research walkthrough came through the oldest, ad 1004325811688575."
+                : "The longest-running ads are kept here.")}
           </p>
-          <div className="mt-5 grid sm:grid-cols-2 gap-4">
-            {d.ads.map((ad) => (
-              <article key={ad.headline} className="card p-4">
+          <div className="mt-5 grid sm:grid-cols-2 gap-4 items-start">
+            {d.ads.map((ad, i) => (
+              <article key={`${ad.headline}-${i}`} className="card p-4">
+                {ad.img && (
+                  <div className="mb-3 rounded-lg border border-line overflow-hidden bg-field">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={ad.img}
+                      alt={`${d.name}'s ad${ad.headline ? `: ${ad.headline}` : ""}`}
+                      className="w-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
                 <p className="font-display font-bold text-[15.5px]">{ad.headline}</p>
-                <p className="text-[13.5px] text-muted mt-1.5">{ad.body}</p>
+                {ad.body.trim() !== "" && <p className="text-[13.5px] text-muted mt-1.5">{ad.body}</p>}
                 <p className="font-mono text-[12px] text-go-text mt-3">{ad.kind} · {ad.running} · {ad.cta}</p>
-                <p className="text-[12px] mt-2"><a className="alink" href="https://www.facebook.com/ads/library/" target="_blank" rel="noreferrer">In the Ad Library ↗</a></p>
+                <p className="text-[12px] mt-2">
+                  <a className="alink" href={ad.lib ?? "https://www.facebook.com/ads/library/"} target="_blank" rel="noreferrer">In the Ad Library ↗</a>
+                </p>
               </article>
             ))}
           </div>
         </section>
+      )}
+
+      {d.observed && (
+        <p className="mt-10 text-[13.5px] text-muted border-l-2 border-line pl-4 max-w-[640px]">{d.observed}</p>
       )}
 
       {/* This week's study: the three moves to steal */}
