@@ -43,7 +43,8 @@ shell that runs the local Next.js server and opens the product in its own
 window. Fully offline, no browser required.
 
 ```bash
-# from this repo's Releases page: download boringfunnels-desktop_1.0.0_amd64.deb
+# download boringfunnels-desktop_1.0.0_amd64.deb from:
+#   https://github.com/payswapdotorg/boringfunnels/releases/tag/v1.0.0
 sudo apt install ./boringfunnels-desktop_1.0.0_amd64.deb
 boringfunnels          # or launch "boringfunnels" from your application menu
 ```
