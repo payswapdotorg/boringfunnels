@@ -2,6 +2,8 @@
 
 **boringfunnels — build funnels that sell with the AI tools you already use.**
 
+**Live deployment:** **https://boringfunnels-chi.vercel.app** (Vercel, production)
+
 A clean-room clone of the product at [boringfunnels.com](https://boringfunnels.com), reverse-engineered with [rea](https://github.com/morluto/rea) (analyze-web-bundle, inspect-web-page, capture-web-screenshot, analyze-javascript-application) and rebuilt as a standalone Next.js app for study. See [CLONE-NOTES.md](./CLONE-NOTES.md) for the method, evidence, and honest scope.
 
 ## What it is
